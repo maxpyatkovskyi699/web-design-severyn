@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Index Page</title>
+  </head>
+  <body>
+    <h1>Список категорій</h1>
+    {% if categories %}
+    <ul>
+      {% for category in categories %}
+      <li>{{ category.name }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>Категорій немає</p>
+    {% endif %}
+
+    <h1>Список продуктів</h1>
+    {% if products %}
+    <ul>
+      {% for product in products %}
+      <li>{{ product.name }} — {{ product.price }} грн</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>Продуктів немає</p>
+    {% endif %}
+  </body>
+</html>
