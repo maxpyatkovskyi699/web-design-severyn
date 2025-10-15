@@ -1,0 +1,12 @@
+{% extends "testapp/layout.html" %}
+<!--  -->
+{% block title %}Список категорій{% endblock %}
+<!--  -->
+{% block content%}
+<h2>Список категорій</h2>
+<ul>
+  {% for category in categories %}
+  <li>{{ category.name }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Мій застосунок{% endblock %}</title>
+
+    <!-- Загальні стилі -->
+    <link rel="stylesheet" href="{% static 'testapp/css/styles.css' %}" />
+
+    <!-- Блок для додаткових тегів у head -->
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body>
+    <!-- Header / навігація -->
+    <header>
+      <nav>
+        <a href="{% url 'category_list' %}">Категорії</a> |
+        <a href="{% url 'product_list' %}">Продукти</a>
+      </nav>
+    </header>
+
+    <!-- Основний контент сторінки -->
+    <main>{% block content %}{% endblock %}</main>
+
+    <!-- Footer -->
+    <footer>
+      <p>© Тестовий застосунок, 2025</p>
+    </footer>
+
+    <!-- Блок для додаткових скриптів -->
+    {% block extra_scripts %}{% endblock %}
+  </body>
+</html>

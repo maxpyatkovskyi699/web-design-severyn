@@ -8,3 +8,14 @@ def index(request):
         'categories': categories,
         'products': products
     })
+
+# Обробник для списку категорій
+def category_list(request):
+    categories = Category.objects.all()  # Отримуємо всі категорії з БД
+    return render(request, "testapp/category_list.html", {"categories": categories})
+
+
+# Обробник для списку продуктів
+def product_list(request):
+    products = Product.objects.all()  # Отримуємо всі продукти з БД
+    return render(request, "testapp/product_list.html", {"products": products})
