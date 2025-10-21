@@ -1,0 +1,46 @@
+{% extends "testapp/layout.html" %} {% block title %}Деталі категорії{% endblock %}
+<!-- -->
+{% block content %}
+<h2>Деталі категорії</h2>
+<div class="crud-form">
+  <p><strong>ID:</strong> {{ category.id }}</p>
+  <p><strong>Назва категорії:</strong> {{ category.name }}</p>
+  <h3>Продукти цієї категорії:</h3>
+  {% if category.products.all %}
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Назва</th>
+        <th>Ціна</th>
+        <th>Опис</th>
+        <th>Дії</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in category.products.all %}
+      <tr>
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }} грн</td>
+        <td>{{ product.description|truncatewords:10 }}</td>
+        <td>
+          <a href="{% url 'product_detail' product.slug %}" class="btn">Переглянути</a>
+          <a href="{% url 'product_update' product.slug %}" class="btn">Редагувати</a>
+          <form
+            action="{% url 'product_delete' product.slug %}"
+            method="post"
+            style="display: inline"
+          >
+            {% csrf_token %} <button type="submit" class="btn btn-danger">Видалити</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>У цій категорії поки немає продуктів.</p>
+  {% endif %} <a href="{% url 'category_list' %}" class="category-btn-back">Назад до списку</a>
+</div>
+{% endblock %}

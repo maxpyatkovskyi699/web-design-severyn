@@ -44,13 +44,140 @@ nav a:hover {
 main {
   flex-grow: 1;
   padding: 30px 40px;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
 h2 {
   color: #003399;
   margin-bottom: 15px;
+}
+
+/* === Таблиці === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background: white;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+table form {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  display: inline;
+}
+
+th,
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #0044cc;
+  color: white;
+  text-align: left;
+}
+
+td form {
+  display: inline;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* === Єдиний стиль для всіх кнопок === */
+button,
+.btn {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 20px; /* універсальний розмір */
+  min-width: 120px; /* однакова ширина */
+  text-align: center;
+  background-color: #0044cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  vertical-align: middle;
+}
+
+button:hover,
+.btn:hover {
+  background-color: #003399;
+  transform: translateY(-2px);
+}
+
+button:active,
+.btn:active {
+  transform: translateY(0);
+  background-color: #002366;
+}
+
+/* Кнопка небезпечної дії (напр. "Видалити") */
+button.btn-danger,
+.btn.btn-danger {
+  background-color: #cc0000;
+}
+
+button.btn-danger:hover,
+.btn.btn-danger:hover {
+  background-color: #990000;
+  transform: translateY(-2px);
+}
+
+button.btn-danger:active,
+.btn.btn-danger:active {
+  transform: translateY(0);
+  background-color: #880000;
+}
+
+/* Сірі другорядні кнопки, напр. "Назад" */
+button.btn-secondary,
+.btn.btn-secondary {
+  background-color: #6c757d;
+}
+
+button.btn-secondary:hover,
+.btn.btn-secondary:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+button.btn-secondary:active,
+.btn.btn-secondary:active {
+  transform: translateY(0);
+  background-color: #4e555b;
+}
+
+/* === Пагінація === */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination form {
+  display: inline;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination span {
+  font-weight: 500;
 }
 
 /* === Списки === */
@@ -72,25 +199,31 @@ li:hover {
   background: #d8e4ff;
 }
 
-/* === Таблиці (якщо додасте) === */
-table {
+/* === Форми === */
+form {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+input,
+select,
+textarea {
+  font-family: "Segoe UI", Tahoma, sans-serif;
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-  background: white;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-th,
-td {
-  padding: 10px 14px;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
-  background-color: #0044cc;
-  color: white;
-  text-align: left;
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #0044cc;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 68, 204, 0.4);
 }
 
 /* === Футер === */
@@ -101,4 +234,96 @@ footer {
   font-size: 14px;
   color: #555;
   border-top: 1px solid #ddd;
+  margin-top: 30px;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* === Форми CRUD === */
+form.crud-form {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  padding: 20px;
+  border-radius: 6px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+form.crud-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #003399;
+}
+
+form.crud-form textarea {
+  resize: none;
+}
+
+form.crud-form input[type="text"],
+form.crud-form input[type="number"],
+form.crud-form select,
+form.crud-form textarea {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+form.crud-form input:focus,
+form.crud-form select:focus,
+form.crud-form textarea:focus {
+  border-color: #0044cc;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 68, 204, 0.4);
+}
+
+form.crud-form button {
+  margin-right: 10px;
+}
+
+/* Placeholder для всіх форм */
+form.crud-form input::placeholder,
+form.crud-form textarea::placeholder,
+form.crud-form select::placeholder {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.inline-form {
+  display: inline;
+  background: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+.category-btn-back {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 20px;
+  min-width: 120px;
+  text-align: center;
+  background-color: #0044cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  vertical-align: middle;
+  margin-top: 15px;
+  transform: translateY(0);
+}
+
+.category-btn-back:hover {
+  background-color: #003399;
+  transform: translateY(-2px);
 }

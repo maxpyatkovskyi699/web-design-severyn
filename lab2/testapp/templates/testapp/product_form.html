@@ -1,0 +1,29 @@
+{% extends "testapp/layout.html" %} {% block title %}Створення продукту{% endblock %}
+<!--  -->
+{% block content %}
+<h2>Створення продукту</h2>
+
+<form method="post" class="crud-form">
+  {% csrf_token %}
+
+  <label for="id_name">Назва продукту</label>
+  {{ form.name }}
+
+  <label for="slug_name">Slug продукту</label>
+  {{ form.slug }}
+
+  <label for="id_category">Категорія</label>
+  {{ form.category }}
+
+  <label for="id_price">Ціна</label>
+  {{ form.price }}
+
+  <label for="id_description">Опис</label>
+  {{ form.description }}
+
+  <button type="submit" class="btn">Створити</button>
+  <a href="{% url 'product_list' %}"
+    ><button type="button" class="btn btn-danger">Скасувати</button></a
+  >
+</form>
+{% endblock %}

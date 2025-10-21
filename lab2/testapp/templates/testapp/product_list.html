@@ -1,31 +1,71 @@
-{% extends "testapp/layout.html" %}
-<!--  -->
-{% block title %}Продукты{% endblock %}
+{% extends "testapp/layout.html" %} {% block title %}Список продуктів{% endblock %}
 <!--  -->
 {% block content %}
-<h1>Продукты</h1>
+
+<h2>Список продуктів</h2>
+
 <table>
   <thead>
     <tr>
       <th>ID</th>
-      <th>Название</th>
-      <th>Категория</th>
-      <th>Цена</th>
+      <th>Назва</th>
+      <th>Категорія</th>
+      <th>Ціна</th>
+      <th>Опис</th>
+      <th>Дії</th>
     </tr>
   </thead>
   <tbody>
-    {% for product in products %}
+    {% for product in page_obj %}
     <tr>
       <td>{{ product.id }}</td>
       <td>{{ product.name }}</td>
       <td>{{ product.category.name }}</td>
-      <td>{{ product.price }}</td>
+      <td>{{ product.price }} грн</td>
+      <td>{{ product.description|truncatewords:10 }}</td>
+      <td>
+        <a href="{% url 'product_detail' product.slug %}">
+          <button type="button" class="btn">Переглянути</button>
+        </a>
+        <a href="{% url 'product_update' product.slug %}">
+          <button type="button" class="btn">Редагувати</button>
+        </a>
+        <form
+          action="{% url 'product_delete' product.slug %}"
+          method="post"
+          style="display: inline"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Видалити</button>
+        </form>
+      </td>
     </tr>
     {% empty %}
     <tr>
-      <td colspan="4">Нет продуктов</td>
+      <td colspan="6">Немає продуктів у базі даних.</td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<br />
+<a href="{% url 'product_create' %}" class="btn">Додати новий продукт</a>
+
+<!-- Пагінація -->
+<div class="pagination">
+  {% if page_obj.has_previous %}
+  <form method="get" style="display: inline">
+    <button type="submit" name="page" value="{{ page_obj.previous_page_number }}">« Назад</button>
+  </form>
+  {% endif %}
+
+  <span>Сторінка {{ page_obj.number }} із {{ page_obj.paginator.num_pages }}</span>
+
+  {% if page_obj.has_next %}
+  <form method="get" style="display: inline">
+    <button type="submit" name="page" value="{{ page_obj.next_page_number }}">Вперед »</button>
+  </form>
+  {% endif %}
+</div>
+
 {% endblock %}

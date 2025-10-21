@@ -1,12 +1,64 @@
-{% extends "testapp/layout.html" %}
+{% extends "testapp/layout.html" %} {% block title %}Список категорій{% endblock %}
 <!--  -->
-{% block title %}Список категорій{% endblock %}
-<!--  -->
-{% block content%}
+{% block content %}
 <h2>Список категорій</h2>
-<ul>
-  {% for category in categories %}
-  <li>{{ category.name }}</li>
-  {% endfor %}
-</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Назва</th>
+      <th>Дії</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for category in page_obj %}
+    <tr>
+      <td>{{ category.id }}</td>
+      <td>{{ category.name }}</td>
+      <td>
+        <a href="{% url 'category_detail' category.slug %}">
+          <button type="button" class="btn">Переглянути</button>
+        </a>
+        <a href="{% url 'category_update' category.slug %}">
+          <button type="button" class="btn">Редагувати</button>
+        </a>
+        <form
+          action="{% url 'category_delete' category.slug %}"
+          method="post"
+          style="display: inline"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Видалити</button>
+        </form>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4">Немає категорій у базі даних.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br />
+<a href="{% url 'category_create' %}" class="btn">Додати нову категорію</a>
+
+<!-- Пагінація -->
+<div class="pagination">
+  {% if page_obj.has_previous %}
+  <form method="get" style="display: inline">
+    <button type="submit" name="page" value="{{ page_obj.previous_page_number }}">« Назад</button>
+  </form>
+  {% endif %}
+
+  <span>Сторінка {{ page_obj.number }} із {{ page_obj.paginator.num_pages }}</span>
+
+  {% if page_obj.has_next %}
+  <form method="get" style="display: inline">
+    <button type="submit" name="page" value="{{ page_obj.next_page_number }}">Вперед »</button>
+  </form>
+  {% endif %}
+</div>
+
 {% endblock %}

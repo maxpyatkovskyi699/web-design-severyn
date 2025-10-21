@@ -1,0 +1,20 @@
+{% extends "testapp/layout.html" %}
+<!--  -->
+{% block title %}Створення категорії{% endblock %} {% block content %}
+<h2>Створення категорії</h2>
+
+<form method="post" class="crud-form">
+  {% csrf_token %}
+
+  <label for="id_name">Назва категорії</label>
+  {{ form.name }}
+
+  <label for="slug_name">Slug категорії</label>
+  {{ form.slug }}
+
+  <button type="submit" class="btn">Створити</button>
+  <a href="{% url 'category_list' %}"
+    ><button type="button" class="btn btn-danger">Скасувати</button></a
+  >
+</form>
+{% endblock %}

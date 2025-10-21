@@ -16,7 +16,7 @@
     <!-- Header / навігація -->
     <header>
       <nav>
-        <a href="{% url 'category_list' %}">Категорії</a> |
+        <a href="{% url 'category_list' %}">Категорії</a>
         <a href="{% url 'product_list' %}">Продукти</a>
       </nav>
     </header>
@@ -31,5 +31,100 @@
 
     <!-- Блок для додаткових скриптів -->
     {% block extra_scripts %}{% endblock %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const nameInput = document.getElementById("id_name");
+        const slugInput = document.getElementById("id_slug");
+
+        // Словник для транслітерації українських/російських та грецьких літер
+        const translitMap = {
+          а: "a",
+          б: "b",
+          в: "v",
+          г: "h",
+          ґ: "g",
+          д: "d",
+          е: "e",
+          є: "ye",
+          ж: "zh",
+          з: "z",
+          и: "y",
+          і: "i",
+          ї: "yi",
+          й: "y",
+          к: "k",
+          л: "l",
+          м: "m",
+          н: "n",
+          о: "o",
+          п: "p",
+          р: "r",
+          с: "s",
+          т: "t",
+          у: "u",
+          ф: "f",
+          х: "kh",
+          ц: "ts",
+          ч: "ch",
+          ш: "sh",
+          щ: "sh",
+          ь: "",
+          ю: "yu",
+          я: "ya",
+          ы: "y",
+          э: "e",
+          ё: "yo",
+          ъ: "",
+          " ": "-",
+
+          α: "a",
+          β: "b",
+          γ: "g",
+          δ: "d",
+          ε: "e",
+          ζ: "z",
+          η: "i",
+          θ: "th",
+          ι: "i",
+          κ: "k",
+          λ: "l",
+          μ: "m",
+          ν: "n",
+          ξ: "x",
+          ο: "o",
+          π: "p",
+          ρ: "r",
+          σ: "s",
+          ς: "s",
+          τ: "t",
+          υ: "y",
+          φ: "f",
+          χ: "ch",
+          ψ: "ps",
+          ω: "o",
+        };
+
+        if (nameInput && slugInput) {
+          nameInput.addEventListener("input", function () {
+            let input = nameInput.value.toLowerCase(); // Вже перетворює на нижній регістр
+            let result = "";
+
+            // Транслітерація кожного символу
+            for (let ch of input) {
+              // Використовуємо мапу, якщо символ є, інакше залишаємо символ як є
+              result += translitMap[ch] !== undefined ? translitMap[ch] : ch;
+            }
+
+            // Видаляємо недопустимі символи та форматуємо slug
+            result = result
+              .replace(/[^a-z0-9-]/g, "") // тільки латиниця, цифри, дефіс (після транслітерації)
+              .replace(/-+/g, "-") // кілька дефісів → один
+              .replace(/(^-|-$)/g, ""); // видалити дефіси на початку/в кінці
+
+            slugInput.value = result;
+          });
+        }
+      });
+    </script>
   </body>
 </html>

@@ -1,0 +1,25 @@
+{% extends "testapp/layout.html" %} {% block title %}Деталі продукту{% endblock %}
+<!--  -->
+{% block content %}
+<h2>Деталі продукту</h2>
+
+<div class="crud-form">
+  <p><strong>ID:</strong> {{ product.id }}</p>
+  <p><strong>Категорія:</strong> {{ product.category.name }}</p>
+  <p><strong>Назва:</strong> {{ product.name }}</p>
+  <p><strong>Ціна:</strong> {{ product.price }} грн</p>
+
+  {% if product.description %}
+  <p><strong>Опис:</strong> {{ product.description }}</p>
+  {% endif %}
+
+  <div class="button-group">
+    <a href="{% url 'product_list' %}" class="btn btn-back">Назад до списку</a>
+    <a href="{% url 'product_update' product.slug %}" class="btn">Редагувати</a>
+    <form action="{% url 'product_delete' product.slug %}" method="post" style="display: inline">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Видалити</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
