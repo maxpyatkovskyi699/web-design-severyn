@@ -33,14 +33,9 @@ def category_create(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
         if form.is_valid():
-            # 1. Створюємо об'єкт, але не зберігаємо його у БД (commit=False)
             category = form.save(commit=False) 
-            
-            # 2. Перевіряємо та генеруємо slug
             if not category.slug:
                 category.slug = slugify(category.name)
-                
-            # 3. Зберігаємо об'єкт у БД
             category.save() 
             return redirect('category_list')
     else:
@@ -80,10 +75,8 @@ def product_create(request):
         form = ProductForm(request.POST)
         if form.is_valid():
             product = form.save(commit=False)
-            
             if not product.slug:
                 product.slug = slugify(product.name)
-
             product.save()
             return redirect('product_list')
     else:
