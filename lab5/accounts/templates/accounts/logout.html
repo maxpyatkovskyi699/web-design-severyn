@@ -1,0 +1,6 @@
+{% extends "accounts/layout.html" %} {% block content %}
+<h2>Ви вийшли з акаунта</h2>
+<form action="{% url 'login' %}" method="get">
+  <button type="submit">Увійти знову</button>
+</form>
+{% endblock %}
