@@ -4,4 +4,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Ласкаво просимо до розділу товарів!")
+    return HttpResponse("Ласкаво просимо до розділу замовлень!")
