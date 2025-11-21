@@ -33,18 +33,17 @@ def category_create(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
         if form.is_valid():
-            category = form.save(commit=False) 
+            category = form.save(commit=False)
             if not category.slug:
                 category.slug = slugify(category.name)
-            category.save() 
-            return redirect('category_list')
+            category.save()
+            return redirect('category_detail', slug=category.slug)
     else:
         form = CategoryForm()
     return render(request, 'testapp/category_form.html', {'form': form})
 
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
-    # Якщо у моделі Product є related_name='products':
     products = category.products.all()
     return render(request, 'testapp/category_detail.html', {
         'category': category,
@@ -56,8 +55,11 @@ def category_update(request, slug):
     if request.method == 'POST':
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
-            form.save()
-            return redirect('category_list')
+            category = form.save(commit=False)
+            if not category.slug:
+                category.slug = slugify(category.name)
+            category.save()
+            return redirect('category_list', slug=category.slug)
     else:
         form = CategoryForm(instance=category)
     return render(request, 'testapp/category_form.html', {'form': form})
@@ -78,7 +80,7 @@ def product_create(request):
             if not product.slug:
                 product.slug = slugify(product.name)
             product.save()
-            return redirect('product_list')
+            return redirect('product_detail', slug=product.slug)
     else:
         form = ProductForm()
     return render(request, 'testapp/product_form.html', {'form': form})
@@ -92,7 +94,10 @@ def product_update(request, slug):
     if request.method == 'POST':
         form = ProductForm(request.POST, instance=product)
         if form.is_valid():
-            form.save()
+            product = form.save(commit=False)
+            if not product.slug:
+                product.slug = slugify(product.name)
+            product.save()
             return redirect('product_list')
     else:
         form = ProductForm(instance=product)
